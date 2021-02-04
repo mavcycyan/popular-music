@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AlbumsListService} from '../services/albums-list.service';
-import {Observable, Subscription} from 'rxjs/index';
+import {Subscription} from 'rxjs/index';
 
 @Component({
   selector: 'app-albums-page',
