@@ -1,0 +1,221 @@
+header {
+    padding: 15px 0;
+}
+
+.h-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.h-back {padding-right: 15px;}
+
+.h-back a {
+    font-size: 23px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.h-srch {
+    padding: 0 15px;
+    flex: 1;
+}
+
+.h-srch-form {
+    position: relative;
+    width: 100%;
+    max-width: 210px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.h-srch-form input[type="text"] {
+    border: 0;
+    background: none;
+}
+
+.h-srch-form button {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+}
+
+.h-srch-form button svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.page_albums-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.page_albums-wrap {
+    padding-top: 80px;
+}
+
+.page_albums-col {
+    width: 228px;
+    padding: 0 15px;
+}
+
+.page_albums-bl {
+    display: block;
+    border-radius: 6px;
+    background: #ffffff;
+    margin-bottom: 30px;
+    height: 198px;
+    text-decoration: none;
+    color: #272727;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.page_albums-bl-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.page_albums-bl-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(39, 39, 39, 0.9);
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
+.page_albums-bl:hover .page_albums-bl-info {
+    opacity: 1;
+    transition: 0.3s ease-out;
+}
+
+.page_albums-bl-title {
+    color: #fff;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.page_albums-bl-name {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.page_albums-bl-like button {
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.page_albums-bl-like button svg {
+    width: 30px;
+    height: 28px;
+}
+
+.page_albums-bl-like button svg path {
+    transition: 0.3s;
+}
+
+.page_albums-bl-like button.active svg path {
+    fill: #ffffff;
+    transition: 0.3s;
+}
+
+.page_albums-none {
+    color: #ffffff;
+}
+
+.like {
+    position: relative;
+}
+
+.like svg {
+    width: 30px;
+    height: 29px;
+}
+
+.like span {
+    position: absolute;
+    z-index: 2;
+    background: #4051b6;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    padding: 3px;
+    top: -6px;
+    right: -10px;
+    width: 19px;
+    height: 19px;
+    text-align: center;
+}
+
+.sk-double-bounce {
+    width: 4em;
+    height: 4em;
+    position: relative;
+    margin: auto;
+}
+.sk-double-bounce .sk-child {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #337ab7;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-double-bounce 2s infinite ease-in-out;
+    animation: sk-double-bounce 2s infinite ease-in-out;
+}
+.sk-double-bounce .sk-double-bounce-2 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+
+@-webkit-keyframes sk-double-bounce {
+    0%, 100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes sk-double-bounce {
+    0%, 100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@media(max-width: 991px) {
+    .page_albums-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        justify-content: center;
+    }
+}

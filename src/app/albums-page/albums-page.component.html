@@ -1,0 +1,67 @@
+<div class="wrapper">
+    <header>
+        <div class="container">
+            <div class="h-row">
+                <div class="h-back">
+                    <a routerLink="/">Back</a>
+                </div>
+                <div class="h-srch">
+                    <div class="h-srch-form">
+                        <input type="text" placeholder="Print album here..." (keyup)="writeToSearch($event)">
+                        <button (click)="filterItems(searchQuery)">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" viewBox="0 0 24 24" fill="#272727">
+                                <path d="M9.5,3C13.09,3 16,5.91 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16C5.91,16 3,13.09 3,9.5C3,5.91 5.91,3 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="h-likes">
+                    <div class="like">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -256 1850 1850">
+                            <g transform="matrix(1,0,0,-1,37.966102,1343.4237)">
+                                <path d="m 896,-128 q -26,0 -44,18 L 228,492 q -10,8 -27.5,26 Q 183,536 145,583.5 107,631 77,681 47,731 23.5,802 0,873 0,940 q 0,220 127,344 127,124 351,124 62,0 126.5,-21.5 64.5,-21.5 120,-58 55.5,-36.5 95.5,-68.5 40,-32 76,-68 36,36 76,68 40,32 95.5,68.5 55.5,36.5 120,58 64.5,21.5 126.5,21.5 224,0 351,-124 127,-124 127,-344 0,-221 -229,-450 L 940,-110 q -18,-18 -44,-18" fill="transparent" stroke-width="100px" stroke="#ffffff"/>
+                            </g>
+                        </svg>
+                        <span *ngIf="liked !== 0">{{liked}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="page_albums-wrap">
+            <div class="container">
+                <div *ngIf="albums; else noneAlbums;" class="page_albums-row">
+                    <div *ngFor="let album of albums; index as i" class="page_albums-col">
+                        <div class="page_albums-bl">
+                            <div class="page_albums-bl-img">
+                                <img src="{{album.image[3]['#text']}}" alt="">
+                            </div>
+                            <div class="page_albums-bl-info">
+                                <div class="page_albums-bl-title">{{album.name}}</div>
+                                <div class="page_albums-bl-name">{{album.artist.name}}</div>
+                                <div class="page_albums-bl-like">
+                                    <button (click)="toLs(album.id)" [ngClass]="{active: album.isLiked}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -256 1850 1850">
+                                            <g transform="matrix(1,0,0,-1,37.966102,1343.4237)">
+                                                <path d="m 896,-128 q -26,0 -44,18 L 228,492 q -10,8 -27.5,26 Q 183,536 145,583.5 107,631 77,681 47,731 23.5,802 0,873 0,940 q 0,220 127,344 127,124 351,124 62,0 126.5,-21.5 64.5,-21.5 120,-58 55.5,-36.5 95.5,-68.5 40,-32 76,-68 36,36 76,68 40,32 95.5,68.5 55.5,36.5 120,58 64.5,21.5 126.5,21.5 224,0 351,-124 127,-124 127,-344 0,-221 -229,-450 L 940,-110 q -18,-18 -44,-18" fill="transparent" stroke-width="100px" stroke="#ffffff"/>
+                                            </g>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #noneAlbums>
+                    <div class="page_albums-none">
+                        <div class='sk-double-bounce'>
+                            <div class='sk-child sk-double-bounce-1'></div>
+                            <div class='sk-child sk-double-bounce-2'></div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </main>
+</div>
