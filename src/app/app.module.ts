@@ -7,6 +7,7 @@ import {FrontPageComponent} from './front-page/front-page.component';
 import {AlbumsPageComponent} from './albums-page/albums-page.component';
 import {AlbumsListService} from './services/albums-list.service';
 import {HttpClientModule} from '@angular/common/http';
+import {LocalStorageService} from './services/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-      AlbumsListService
+      AlbumsListService,
+      LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,17 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {AlbumsListService} from '../services/albums-list.service';
 import {Subscription} from 'rxjs/index';
+import {LocalStorageService} from '../services/local-storage.service';
+import {Album, AlbumStorage} from '../interfaces';
 
 @Component({
   selector: 'app-albums-page',
   templateUrl: './albums-page.component.html',
   styleUrls: ['./albums-page.component.css']
 })
-export class AlbumsPageComponent implements OnInit, OnDestroy {
+export class AlbumsPageComponent implements OnInit, OnDestroy, OnChanges {
 
-  albumsBase: any;
-  albums: any;
+  albumsBase: Album[];
+  albums: Album[];
 
   liked = 0;
 
@@ -24,7 +26,8 @@ export class AlbumsPageComponent implements OnInit, OnDestroy {
 
   constructor(
       private activatedRoute: ActivatedRoute,
-      private albumListService: AlbumsListService
+      private albumListService: AlbumsListService,
+      private localStorageService: LocalStorageService,
   ) { }
 
   filterItems(query): void {
@@ -38,16 +41,17 @@ export class AlbumsPageComponent implements OnInit, OnDestroy {
   }
 
   writeToSearch(event: any): void {
+      console.log(event.target.valueOf());
       this.searchQuery = event.target.value;
   }
 
-  async getAlbumsList(): Promise<any> {
+  getAlbumsList(): void{
       let genre = '';
-      this.actRouteSub = await this.activatedRoute.params.subscribe((params: Params) => {
+      this.actRouteSub = this.activatedRoute.params.subscribe((params: Params) => {
           genre = params.genre;
       });
 
-      this.albumsSub = await this.albumListService.getAlbums({genre})
+      this.albumsSub = this.albumListService.getAlbums({genre})
           .subscribe(albums => {
               this.genre = genre;
 
@@ -67,48 +71,11 @@ export class AlbumsPageComponent implements OnInit, OnDestroy {
           });
   }
 
-  toLs(id: number): void {
-      let lStor = null;
-      if (localStorage.getItem('albums_liked')) {
-          lStor = JSON.parse(localStorage.getItem('albums_liked'));
-          let albumIndex = 0;
-          const isAlbum = lStor.find((album, index) => {
-              if (album.id === id && album.genre === this.genre) {
-                  albumIndex = index;
-                  return album;
-              }
-          });
-
-          if (isAlbum) {
-              this.albums.find((album, index) => {
-                 if (album.id === id) {
-                     this.albums[index].isLiked = false;
-                 }
-              });
-              this.liked--;
-              lStor.splice(albumIndex, 1);
-          } else {
-              this.albums.find((album, index) => {
-                  if (album.id === id) {
-                      this.albums[index].isLiked = true;
-                  }
-              });
-              this.liked++;
-              lStor.push({id, genre: this.genre});
-          }
-      } else {
-          this.albums.find((album, index) => {
-              if (album.id === id) {
-                  this.albums[index].isLiked = true;
-              }
-          });
-          this.liked++;
-          lStor = [{id, genre: this.genre}];
-      }
-      localStorage.setItem('albums_liked', JSON.stringify(lStor));
+  toLs(id: string): void {
+      this.liked = this.localStorageService.localStorageWorker(id, this.genre, this.albums, this.liked);
   }
 
-  albumsModify(array: Array<any>, storage: Array<any>): Array<any> {
+  albumsModify(array: Array<Album>, storage: Array<AlbumStorage>): Array<Album> {
       return array.map((el, i) => {
           el.id = el.mbid + '-' + i + '-' + this.genre;
           if (storage) {
@@ -128,6 +95,10 @@ export class AlbumsPageComponent implements OnInit, OnDestroy {
           }
           return el;
       });
+  }
+
+  ngOnChanges(): void {
+      this.getAlbumsList();
   }
 
   ngOnInit(): void {
